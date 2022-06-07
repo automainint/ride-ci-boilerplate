@@ -17,12 +17,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install Surfboard
-        run: |
-          npm install --location=global @waves/surfboard
-          node "$(npm root --location=global)/@waves/surfboard/bin/run"
-          alias surfboard="node $(npm root --location=global)/@waves/surfboard/bin/run -- "
-          surfboard --version
-
+        run:  npm install --location=global @waves/surfboard
       - name: Start a Private Node
         run:  docker run -d -p 6869:6869 wavesplatform/waves-private-node
 
@@ -30,4 +25,4 @@ jobs:
         run:  docker run -d -e API_NODE_URL=http://localhost:6869 -e NODE_LIST=http://localhost:6869 -p 3000:8080 wavesplatform/explorer
 
       - name: Run tests
-        run:  surfboard test
+        run:  node "$(npm root --location=global)/@waves/surfboard/bin/run" test
