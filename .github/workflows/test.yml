@@ -12,7 +12,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: ubuntu
+    container: node
 
     services:
       private_node:
