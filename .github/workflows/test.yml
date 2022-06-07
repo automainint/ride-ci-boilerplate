@@ -19,8 +19,8 @@ jobs:
       - name: Install Surfboard
         run: |
           npm install --location=global @waves/surfboard
-          ls "$(npm root --location=global)/@waves/surfboard/bin/"
-          ./surfboard --version
+          alias surfboard="$(npm root --location=global)/@waves/surfboard/bin/run"
+          surfboard --version
 
       - name: Start a Private Node
         run:  docker run -d -p 6869:6869 wavesplatform/waves-private-node
