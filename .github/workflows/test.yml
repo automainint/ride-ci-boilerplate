@@ -1,0 +1,29 @@
+name: test
+
+on:
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+  schedule:
+    - cron: '0 0 */16 * *'  
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Surfboard
+        run:  sudo npm install --location=global @waves/surfboard
+
+      - name: Start a Private Node
+        run:  sudo docker run -d -p 6869:6869 wavesplatform/waves-private-node
+
+      - name: Start a Waves Explorer
+        run:  sudo docker run -d -e API_NODE_URL=http://localhost:6869 -e NODE_LIST=http://localhost:6869 -p 3000:8080 wavesplatform/explorer
+
+      - name: Run tests
+        run:  surfboard test
