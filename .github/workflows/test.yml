@@ -17,7 +17,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install Surfboard
-        run:  sudo npm install --location=global @waves/surfboard
+        run: |
+          sudo npm install --location=global @waves/surfboard
+          sudo surfboard --version
+          surfboard --version
 
       - name: Start a Private Node
         run:  sudo docker run -d -p 6869:6869 wavesplatform/waves-private-node
