@@ -18,15 +18,14 @@ jobs:
 
       - name: Install Surfboard
         run: |
-          sudo npm install --location=global @waves/surfboard
-          sudo surfboard --version
+          npm install @waves/surfboard
           surfboard --version
 
       - name: Start a Private Node
-        run:  sudo docker run -d -p 6869:6869 wavesplatform/waves-private-node
+        run:  docker run -d -p 6869:6869 wavesplatform/waves-private-node
 
       - name: Start a Waves Explorer
-        run:  sudo docker run -d -e API_NODE_URL=http://localhost:6869 -e NODE_LIST=http://localhost:6869 -p 3000:8080 wavesplatform/explorer
+        run:  docker run -d -e API_NODE_URL=http://localhost:6869 -e NODE_LIST=http://localhost:6869 -p 3000:8080 wavesplatform/explorer
 
       - name: Run tests
         run:  surfboard test
