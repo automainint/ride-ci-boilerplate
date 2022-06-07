@@ -14,19 +14,13 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image:  node:10.18-jessie
+      image:  node:18
 
     services:
       private_node:
         image: wavesplatform/waves-private-node
         ports:
           - 6869:6869
-
-      waves_explorer:
-        image: wavesplatform/explorer
-        options: -e API_NODE_URL=http://localhost:6869 -e NODE_LIST=http://localhost:6869
-        ports:
-          - 3000:8080
 
     steps:
       - uses: actions/checkout@v3
