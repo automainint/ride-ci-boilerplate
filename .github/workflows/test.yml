@@ -18,7 +18,8 @@ jobs:
 
       - name: Install Surfboard
         run: |
-          npm install @waves/surfboard
+          npm install --location=global @waves/surfboard
+          ls /usr/bin
           surfboard --version
 
       - name: Start a Private Node
