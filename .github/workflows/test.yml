@@ -19,8 +19,8 @@ jobs:
       - name: Install Surfboard
         run: |
           npm install --location=global @waves/surfboard
-          sh "$(npm root --location=global)/@waves/surfboard/bin/run"
-          alias surfboard="$(npm root --location=global)/@waves/surfboard/bin/run"
+          sh "$(npm root --location=global)/@waves/surfboard/bin/run.cmd"
+          alias surfboard="$(npm root --location=global)/@waves/surfboard/bin/run.cmd"
           surfboard --version
 
       - name: Start a Private Node
