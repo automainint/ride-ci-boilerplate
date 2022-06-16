@@ -26,4 +26,4 @@ jobs:
         run:  npm install --location=global @waves/surfboard
 
       - name: Run tests
-        run:  node "$(npm root --location=global)/@waves/surfboard/bin/run" test
+        run:  npx surfboard test
