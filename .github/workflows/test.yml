@@ -19,6 +19,14 @@ jobs:
         ports:
           - 6869:6869
 
+      explorer:
+        image: wavesplatform/explorer
+        ports:
+          - 3000:8080
+        env:
+          API_NODE_URL: http://localhost:6869
+          NODE_LIST: http://localhost:6869
+
     steps:
       - uses: actions/checkout@v3
 
