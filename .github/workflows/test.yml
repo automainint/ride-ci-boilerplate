@@ -14,11 +14,13 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
+      # docker run -d -p 6869:6869 wavesplatform/waves-private-node
       private_node:
         image: wavesplatform/waves-private-node
         ports:
           - 6869:6869
 
+      # docker run -d -e API_NODE_URL=http://localhost:6869 -e NODE_LIST=http://localhost:6869 -p 3000:8080 wavesplatform/explorer
       explorer:
         image: wavesplatform/explorer
         ports:
