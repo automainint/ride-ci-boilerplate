@@ -1,6 +1,6 @@
 {
-  "ride_directory": "ride",
-  "test_directory": "test",
+  "ride_directory": "contracts",
+  "test_directory": "test_ride",
   "envs": {
     "custom": {
       "API_BASE": "http://localhost:6869/",

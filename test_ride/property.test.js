@@ -12,10 +12,9 @@ describe('property test suite', async function () {
       accounts.wallet);
     await broadcast(ssTx);
     await waitForTx(ssTx.id)
-    console.log('Script has been set')
   });
 
-  it('Can mint and read property', async function () {
+  it('can mint and read property', async function () {
     const account = address(accounts.wallet);
 
     const iTxFoo = invokeScript(
