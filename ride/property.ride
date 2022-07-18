@@ -1,0 +1,13 @@
+{-# STDLIB_VERSION 5 #-}
+{-# CONTENT_TYPE DAPP #-}
+{-# SCRIPT_TYPE ACCOUNT #-}
+
+@Callable(i)
+func mint(value: Int) = {
+  let issue = Issue("TokenName", "Token description.", 1, 0, false)
+  let id    = calculateAssetId(issue)
+  let key   = toBase58String(id)
+  ( [ issue,
+      IntegerEntry(key + "_property", value) ],
+    unit )
+}

@@ -5,8 +5,8 @@ describe('wallet test suite', async function () {
 
   before(async function () {
     await setupAccounts(
-      { foofoofoofoofoofoofoofoofoofoofoo: 10 * wvs,
-        barbarbarbarbarbarbarbarbarbar: 2 * wvs,
+      { foo: 10 * wvs,
+        bar: 2 * wvs,
         wallet: 0.05 * wvs });
     const script = compile(file('wallet.ride'));
     const ssTx = setScript(
@@ -22,15 +22,13 @@ describe('wallet test suite', async function () {
       { dApp:     address(accounts.wallet),
         call:     { function: 'deposit' },
         payment:  [ { assetId: null, amount: 0.9 * wvs } ] },
-      accounts.foofoofoofoofoofoofoofoofoofoofoo);
-
+      accounts.foo);
 
     const iTxBar = invokeScript(
       { dApp:     address(accounts.wallet),
         call:     { function: 'deposit' },
         payment:  [ { assetId: null, amount: 1.9 * wvs } ] },
-      accounts.barbarbarbarbarbarbarbarbarbar);
-
+      accounts.bar);
 
     await broadcast(iTxFoo);
     await broadcast(iTxBar);
@@ -45,7 +43,7 @@ describe('wallet test suite', async function () {
           function: 'withdraw',
           args:     [ { type: 'integer', value: 2 * wvs } ]
         } },
-      accounts.foofoofoofoofoofoofoofoofoofoofoo);
+      accounts.foo);
 
     expect(broadcast(iTxFoo)).to.be.rejectedWith('Not enough balance')
   });
@@ -57,7 +55,7 @@ describe('wallet test suite', async function () {
           function: 'withdraw',
           args:     [ { type: 'integer', value: 0.9 * wvs } ]
         } },
-      accounts.foofoofoofoofoofoofoofoofoofoofoo);
+      accounts.foo);
 
     await broadcast(iTxFoo)
   });
