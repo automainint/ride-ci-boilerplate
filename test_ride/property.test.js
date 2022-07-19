@@ -1,40 +1,45 @@
 const wvs = 10 ** 8;
 
-describe('property test suite', async function () {
+describe('property', async function () {
   this.timeout(100000);
 
   before(async function () {
     await setupAccounts(
-      { wallet: 10 * wvs });
+      { storage:  10 * wvs,
+        foo:      10 * wvs });
     const script = compile(file('property.ride'));
     const ssTx = setScript(
-      { script: script },
-      accounts.wallet);
+      { script: script,
+        fee:    1000000 },
+      accounts.storage);
     await broadcast(ssTx);
     await waitForTx(ssTx.id)
   });
 
   it('can mint and read property', async function () {
-    const account = address(accounts.wallet);
+    const storage = address(accounts.storage);
+    const foo     = address(accounts.foo);
 
-    const iTxFoo = invokeScript(
-      { dApp: account,
+    const iTxMint = invokeScript(
+      { dApp: storage,
         call: {
           function: 'mint',
           args:     [ { type: 'integer', value: 42 } ]
         } },
-      accounts.wallet);
+      accounts.foo);
 
-    await broadcast(iTxFoo);
-    await waitForTx(iTxFoo.id);
+    await broadcast(iTxMint);
+    await waitForTx(iTxMint.id);
 
-    const data = await accountData(account);
+    const changes = await stateChanges(iTxMint.id);
 
-    const value = (() => {
-      for (let id in data)
-        return data[id].value;
-    })();
+    const assetId = changes.issues[0].assetId; 
+    const key     = assetId + '_property';
 
-    expect(value).to.equal(42);
+    const data    = await accountDataByKey(key, storage);
+    const balance = await assetBalance(assetId, foo);
+
+    expect(data.value).to.equal(42);
+    expect(balance).to.equal(1);
   });
 });

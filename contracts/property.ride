@@ -8,6 +8,7 @@ func mint(value: Int) = {
   let id    = calculateAssetId(issue)
   let key   = toBase58String(id)
   ( [ issue,
-      IntegerEntry(key + "_property", value) ],
+      IntegerEntry(key + "_property", value),
+      ScriptTransfer(i.caller, 1, id) ],
     unit )
 }

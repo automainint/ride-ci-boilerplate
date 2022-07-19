@@ -1,16 +1,17 @@
 const wvs = 10 ** 8;
 
-describe('wallet test suite', async function () {
+describe('wallet', async function () {
   this.timeout(100000);
 
   before(async function () {
     await setupAccounts(
-      { foo: 10 * wvs,
-        bar: 2 * wvs,
+      { foo:    10 * wvs,
+        bar:    2 * wvs,
         wallet: 0.05 * wvs });
     const script = compile(file('wallet.ride'));
     const ssTx = setScript(
-      { script: script },
+      { script: script,
+        fee:    1000000 },
       accounts.wallet);
     await broadcast(ssTx);
     await waitForTx(ssTx.id)
